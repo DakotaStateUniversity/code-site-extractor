@@ -41,6 +41,7 @@ void CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_11_bad()
 //INSURE Pointer inside if inside Function
             structCharVoid.voidSecond = (void *)SRC_STR;
             /* Print the initial block pointed to by structCharVoid.voidSecond */
+//INSURE Array inside if inside Function
             printLine((char *)structCharVoid.voidSecond);
             /* FLAW: Use the sizeof(structCharVoid) which will overwrite the pointer voidSecond */
             memcpy(structCharVoid.charFirst, SRC_STR, sizeof(structCharVoid));
