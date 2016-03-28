@@ -1,4 +1,4 @@
-//INSURE 13 sites found
+//INSURE 5 sites found
 /* TEMPLATE GENERATED TESTCASE FILE
 Filename: CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memmove_01.c
 Label Definition File: CWE121_Stack_Based_Buffer_Overflow.label.xml
@@ -36,18 +36,14 @@ void CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memmove_01_bad()
 {
     {
         charVoid structCharVoid;
-//INSURE Pointer inside Function
         structCharVoid.voidSecond = (void *)SRC_STR;
         /* Print the initial block pointed to by structCharVoid.voidSecond */
-//INSURE Pointer inside Function
         printLine((char *)structCharVoid.voidSecond);
         /* FLAW: Use the sizeof(structCharVoid) which will overwrite the pointer voidSecond */
         memmove(structCharVoid.charFirst, SRC_STR, sizeof(structCharVoid));
 //INSURE Array inside Function
         structCharVoid.charFirst[(sizeof(structCharVoid.charFirst)/sizeof(char))-1] = '\0'; /* null terminate the string */
-//INSURE Pointer inside Function
         printLine((char *)structCharVoid.charFirst);
-//INSURE Pointer inside Function
         printLine((char *)structCharVoid.voidSecond);
     }
 }
@@ -60,18 +56,14 @@ static void good1()
 {
     {
         charVoid structCharVoid;
-//INSURE Pointer inside Function
         structCharVoid.voidSecond = (void *)SRC_STR;
         /* Print the initial block pointed to by structCharVoid.voidSecond */
-//INSURE Pointer inside Function
         printLine((char *)structCharVoid.voidSecond);
         /* FIX: Use sizeof(structCharVoid.charFirst) to avoid overwriting the pointer voidSecond */
         memmove(structCharVoid.charFirst, SRC_STR, sizeof(structCharVoid.charFirst));
 //INSURE Array inside Function
         structCharVoid.charFirst[(sizeof(structCharVoid.charFirst)/sizeof(char))-1] = '\0'; /* null terminate the string */
-//INSURE Pointer inside Function
         printLine((char *)structCharVoid.charFirst);
-//INSURE Pointer inside Function
         printLine((char *)structCharVoid.voidSecond);
     }
 }
