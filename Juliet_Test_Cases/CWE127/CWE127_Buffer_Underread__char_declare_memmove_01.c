@@ -1,3 +1,4 @@
+//INSURE 9 sites found
 /* TEMPLATE GENERATED TESTCASE FILE
 Filename: CWE127_Buffer_Underread__char_declare_memmove_01.c
 Label Definition File: CWE127_Buffer_Underread.stack.label.xml
@@ -25,16 +26,19 @@ void CWE127_Buffer_Underread__char_declare_memmove_01_bad()
     char * data;
     char dataBuffer[100];
     memset(dataBuffer, 'A', 100-1);
+//INSURE 9 sites found
     dataBuffer[100-1] = '\0';
     /* FLAW: Set data pointer to before the allocated memory buffer */
     data = dataBuffer - 8;
     {
         char dest[100];
         memset(dest, 'C', 100-1); /* fill with 'C's */
+//INSURE Array access inside function
         dest[100-1] = '\0'; /* null terminate */
         /* POTENTIAL FLAW: Possibly copy from a memory location located before the source buffer */
         memmove(dest, data, 100*sizeof(char));
         /* Ensure null termination */
+//INSURE Array access inside function
         dest[100-1] = '\0';
         printLine(dest);
     }
@@ -50,16 +54,19 @@ static void goodG2B()
     char * data;
     char dataBuffer[100];
     memset(dataBuffer, 'A', 100-1);
+//INSURE Array access inside function
     dataBuffer[100-1] = '\0';
     /* FIX: Set data pointer to the allocated memory buffer */
     data = dataBuffer;
     {
         char dest[100];
         memset(dest, 'C', 100-1); /* fill with 'C's */
+//INSURE Array access inside function
         dest[100-1] = '\0'; /* null terminate */
         /* POTENTIAL FLAW: Possibly copy from a memory location located before the source buffer */
         memmove(dest, data, 100*sizeof(char));
         /* Ensure null termination */
+//INSURE Array access inside function
         dest[100-1] = '\0';
         printLine(dest);
     }
@@ -67,6 +74,7 @@ static void goodG2B()
 
 void CWE127_Buffer_Underread__char_declare_memmove_01_good()
 {
+//INSURE Function call
     goodG2B();
 }
 
@@ -86,11 +94,13 @@ int main(int argc, char * argv[])
     srand( (unsigned)time(NULL) );
 #ifndef OMITGOOD
     printLine("Calling good()...");
+//INSURE Function call
     CWE127_Buffer_Underread__char_declare_memmove_01_good();
     printLine("Finished good()");
 #endif /* OMITGOOD */
 #ifndef OMITBAD
     printLine("Calling bad()...");
+//INSURE Function call
     CWE127_Buffer_Underread__char_declare_memmove_01_bad();
     printLine("Finished bad()");
 #endif /* OMITBAD */
