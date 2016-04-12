@@ -1,3 +1,7 @@
+//INSURE Code Site Extractor 
+//Total BUFFER WRITE instances: 10
+//Caleb VanGerpen Test Case 07
+
 /* TEMPLATE GENERATED TESTCASE FILE
 Filename: CWE126_Buffer_Overread__char_alloca_loop_01.c
 Label Definition File: CWE126_Buffer_Overread.stack.label.xml
@@ -26,8 +30,10 @@ void CWE126_Buffer_Overread__char_alloca_loop_01_bad()
     char * dataBadBuffer = (char *)ALLOCA(50*sizeof(char));
     char * dataGoodBuffer = (char *)ALLOCA(100*sizeof(char));
     memset(dataBadBuffer, 'A', 50-1); /* fill with 'A's */
+    //INSURE write to buffer "dataBadBuffer"
     dataBadBuffer[50-1] = '\0'; /* null terminate */
     memset(dataGoodBuffer, 'A', 100-1); /* fill with 'A's */
+    //INSURE write to buffer "dataGoodBuffer"
     dataGoodBuffer[100-1] = '\0'; /* null terminate */
     /* FLAW: Set data pointer to a small buffer */
     data = dataBadBuffer;
@@ -35,14 +41,17 @@ void CWE126_Buffer_Overread__char_alloca_loop_01_bad()
         size_t i, destLen;
         char dest[100];
         memset(dest, 'C', 100-1);
+        //INSURE write to buffer "dest"
         dest[100-1] = '\0'; /* null terminate */
         destLen = strlen(dest);
         /* POTENTIAL FLAW: using length of the dest where data
          * could be smaller than dest causing buffer overread */
         for (i = 0; i < destLen; i++)
         {
+            //INSURE write to buffer "dest"
             dest[i] = data[i];
         }
+        //INSURE write to buffer "dest"
         dest[100-1] = '\0';
         printLine(dest);
     }
@@ -59,8 +68,10 @@ static void goodG2B()
     char * dataBadBuffer = (char *)ALLOCA(50*sizeof(char));
     char * dataGoodBuffer = (char *)ALLOCA(100*sizeof(char));
     memset(dataBadBuffer, 'A', 50-1); /* fill with 'A's */
+    //INSURE write to buffer "dataBadBuffer"
     dataBadBuffer[50-1] = '\0'; /* null terminate */
     memset(dataGoodBuffer, 'A', 100-1); /* fill with 'A's */
+    //INSURE write to buffer "dataBadBuffer"
     dataGoodBuffer[100-1] = '\0'; /* null terminate */
     /* FIX: Set data pointer to a large buffer */
     data = dataGoodBuffer;
@@ -68,14 +79,17 @@ static void goodG2B()
         size_t i, destLen;
         char dest[100];
         memset(dest, 'C', 100-1);
+        //INSURE write to buffer "dest"
         dest[100-1] = '\0'; /* null terminate */
         destLen = strlen(dest);
         /* POTENTIAL FLAW: using length of the dest where data
          * could be smaller than dest causing buffer overread */
         for (i = 0; i < destLen; i++)
         {
+            //INSURE write to buffer "dest"
             dest[i] = data[i];
         }
+        //INSURE write to buffer "dest"
         dest[100-1] = '\0';
         printLine(dest);
     }
