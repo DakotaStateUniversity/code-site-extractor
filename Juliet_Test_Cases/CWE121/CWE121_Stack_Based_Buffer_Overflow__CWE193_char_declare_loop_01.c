@@ -1,3 +1,7 @@
+//INSURE Code Site Extractor 
+//Total BUFFER WRITE instances: 6
+//Caleb VanGerpen Test Case 05
+
 /* TEMPLATE GENERATED TESTCASE FILE
 Filename: CWE121_Stack_Based_Buffer_Overflow__CWE193_char_declare_loop_01.c
 Label Definition File: CWE121_Stack_Based_Buffer_Overflow__CWE193.label.xml
@@ -33,8 +37,10 @@ void CWE121_Stack_Based_Buffer_Overflow__CWE193_char_declare_loop_01_bad()
     /* FLAW: Set a pointer to a buffer that does not leave room for a NULL terminator when performing
      * string copies in the sinks  */
     data = dataBadBuffer;
+    //INSURE write to buffer "data"
     data[0] = '\0'; /* null terminate */
     {
+        //INSURE write to buffer "source"
         char source[10+1] = SRC_STRING;
         size_t i, sourceLen;
         sourceLen = strlen(source);
@@ -42,6 +48,7 @@ void CWE121_Stack_Based_Buffer_Overflow__CWE193_char_declare_loop_01_bad()
         /* POTENTIAL FLAW: data may not have enough space to hold source */
         for (i = 0; i < sourceLen + 1; i++)
         {
+            //INSURE write to buffer "data"
             data[i] = source[i];
         }
         printLine(data);
@@ -61,8 +68,10 @@ static void goodG2B()
     /* FIX: Set a pointer to a buffer that leaves room for a NULL terminator when performing
      * string copies in the sinks  */
     data = dataGoodBuffer;
+    //INSURE write to buffer "data"
     data[0] = '\0'; /* null terminate */
     {
+        //INSURE write to buffer "source"
         char source[10+1] = SRC_STRING;
         size_t i, sourceLen;
         sourceLen = strlen(source);
@@ -70,6 +79,7 @@ static void goodG2B()
         /* POTENTIAL FLAW: data may not have enough space to hold source */
         for (i = 0; i < sourceLen + 1; i++)
         {
+            //INSURE write to buffer "data"
             data[i] = source[i];
         }
         printLine(data);
