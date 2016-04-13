@@ -77,20 +77,12 @@ class Extractor:
     """Navigates through the filepath tree and appends all C files in the files
     list.
     """
-    for root, dirnames, filenames in os.walk(self.root_path):
-      for filename in fnmatch.filter(filenames, '*.c'):
-        self.files.append(os.path.join(root, filename))
-    '''
-    
-
-    os.path.isfile("bob.txt") 
-    os.path.isdir("bob")
-
-
-
-    files = os.listdir( folder )
-      return os.path.join( folder, files[ random.randint(0, len(files) - 1) ] )
-    '''
+    if os.path.isfile( self.root_path ):
+      self.files.append( self.root_path )
+    else:
+      for f in os.listdir( self.root_path ):
+        if '.c' in f:
+          self.files.append( os.path.join( self.root_path, f)  )
 
   def buffer_write_sites(self):
     """Returns list of buffer write sites.
