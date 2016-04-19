@@ -15,13 +15,6 @@ from icse import buffer_write
 CPPPATH = 'cpp'
 
 class Extractor:
-  '''
-  Randomly selects a file inside of folder. There may be better ways
-  of doing this.
-
-  @folder: The name of the folder to start looking for files in.
-  @return: A random file from the folder.
-  '''
   """Class to extract sites from Juliet 1.2 and check if these sites are buggy
   or not.
   """
@@ -80,9 +73,10 @@ class Extractor:
     if os.path.isfile( self.root_path ):
       self.files.append( self.root_path )
     else:
-      for f in os.listdir( self.root_path ):
-        if '.c' in f:
-          self.files.append( os.path.join( self.root_path, f)  )
+      for root, dirnames, filenames in os.walk(self.root_path):
+        for filename in filenames:
+          if '.c' in filename[-2:]:
+            self.files.append(os.path.join(root, filename))
 
   def buffer_write_sites(self):
     """Returns list of buffer write sites.
