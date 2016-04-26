@@ -1,3 +1,7 @@
+//INSURE Code Site Extractor 
+//Total BUFFER WRITE instances: 6
+//Juliet Test Case 01
+
 /* TEMPLATE GENERATED TESTCASE FILE
 Filename: CWE122_Heap_Based_Buffer_Overflow__char_type_overrun_memcpy_02.c
 Label Definition File: CWE122_Heap_Based_Buffer_Overflow.label.xml
@@ -41,6 +45,7 @@ void CWE122_Heap_Based_Buffer_Overflow__char_type_overrun_memcpy_02_bad()
             printLine((char *)structCharVoid->voidSecond);
             /* FLAW: Use the sizeof(*structCharVoid) which will overwrite the pointer y */
             memcpy(structCharVoid->charFirst, SRC_STR, sizeof(*structCharVoid));
+//INSURE write to buffer
             structCharVoid->charFirst[(sizeof(structCharVoid->charFirst)/sizeof(char))-1] = '\0'; /* null terminate the string */
             printLine((char *)structCharVoid->charFirst);
             printLine((char *)structCharVoid->voidSecond);
@@ -70,6 +75,7 @@ static void good1()
             printLine((char *)structCharVoid->voidSecond);
             /* FIX: Use the sizeof(structCharVoid->charFirst) to avoid overwriting the pointer y */
             memcpy(structCharVoid->charFirst, SRC_STR, sizeof(structCharVoid->charFirst));
+//INSURE write to buffer
             structCharVoid->charFirst[(sizeof(structCharVoid->charFirst)/sizeof(char))-1] = '\0'; /* null terminate the string */
             printLine((char *)structCharVoid->charFirst);
             printLine((char *)structCharVoid->voidSecond);
@@ -90,6 +96,7 @@ static void good2()
             printLine((char *)structCharVoid->voidSecond);
             /* FIX: Use the sizeof(structCharVoid->charFirst) to avoid overwriting the pointer y */
             memcpy(structCharVoid->charFirst, SRC_STR, sizeof(structCharVoid->charFirst));
+//INSURE write to buffer
             structCharVoid->charFirst[(sizeof(structCharVoid->charFirst)/sizeof(char))-1] = '\0'; /* null terminate the string */
             printLine((char *)structCharVoid->charFirst);
             printLine((char *)structCharVoid->voidSecond);
@@ -100,7 +107,9 @@ static void good2()
 
 void CWE122_Heap_Based_Buffer_Overflow__char_type_overrun_memcpy_02_good()
 {
+//INSURE function call
     good1();
+//INSURE function call
     good2();
 }
 
@@ -124,6 +133,7 @@ int main(int argc, char * argv[])
 #endif /* OMITGOOD */
 #ifndef OMITBAD
     printLine("Calling bad()...");
+//INSURE function call
     CWE122_Heap_Based_Buffer_Overflow__char_type_overrun_memcpy_02_bad();
     printLine("Finished bad()");
 #endif /* OMITBAD */
