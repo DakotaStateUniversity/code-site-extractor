@@ -4,7 +4,7 @@ Requirements
 ------------
 * **code-site-extractor** was tested on Python 3.4, on both Linux.
 * **code-site-extractor** has no external dependencies. The only non-stdlib libraries it
-  uses are pycparser and PLY, which is bundled in ``pycparser`` and ``pycparser/ply``.
+  uses are [pycparser](https://github.com/eliben/pycparser) and [PLY](https://github.com/dabeaz/ply), which is bundled in ``pycparser`` and ``pycparser/ply``.
 * **code-site-extractor** Uses ``cpp`` for preprocessing directives.
 
 Usage
