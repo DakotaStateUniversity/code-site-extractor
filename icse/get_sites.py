@@ -8,8 +8,8 @@ def checkArguments():
   '''
   Reads commandline arguments.
   '''
-  #'buffer_read', 'division_by_zero', 'variable_access', 'null_ptr', 'int_overflow', 'int_underflow', 'write_what_where', 'return'
-  types = ['all', 'buffer_write']
+  # 'division_by_zero', 'variable_access', 'null_ptr', 'int_overflow', 'int_underflow', 'write_what_where', 'return'
+  types = ['all', 'buffer_write', 'buffer_read']
 
   parser = argparse.ArgumentParser(description='Extract sites from file(s) and output them to file.')
 
@@ -20,10 +20,6 @@ def checkArguments():
   parser.add_argument('-s', '--sites', default='all', metavar='type',
             choices=types,
             help='which type of site to search for ' + str(types))
-  #NOT IMPLEMENTED
-  #parser.add_argument('--threads', default=2,
-  #          help='NOT IMPLEMENTED how many threads to run', type=int)
-
 
   args = parser.parse_args()
 
@@ -38,16 +34,18 @@ def checkArguments():
     args.output_file = 'sites_list.csv'
 
   print("sites: '%s'" % args.sites)
+
   return args
 
 def main():
   args = checkArguments()
   print("Parsing files and Building AST trees, this may take a while...")
   sites_extractor = extractor.Extractor(args.source, args.sites)
-  #sites_extractor = extractor.Extractor("selected_Juliet_tests/", 'buffer_write')
 
   print("Extracting buffer write sites...")
   sites = sites_extractor.buffer_write_sites()
+  print("Extracting buffer read sites...")
+  sites += sites_extractor.buffer_read_sites()
 
   #csv_start = time.clock()
 

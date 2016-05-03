@@ -7,7 +7,7 @@ under writes.
 from pycparser import c_ast
 
 class BufferWriteVisitor(c_ast.NodeVisitor):
-  """pyparser NodeVisitor for buffer write sites."""
+  """pycparser NodeVisitor for buffer write sites."""
 
   def __init__(self):
     """Constructor method with a list to keep the nodes that matches the site
