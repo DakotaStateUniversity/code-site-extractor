@@ -212,6 +212,7 @@ class Extractor:
   @staticmethod
   def to_csv(sites, csv_output_path = r'sites_list.csv'):
     """Prints a list of sites to an csv file.
+       FileName, Site Type, Line Number, Info
     
     Args:
       sites (list): Contains Sites that will be written to file
@@ -225,16 +226,15 @@ class Extractor:
       files = files.union(set([site.filename]))
 
     f = open(csv_output_path, 'w')
-    f.write(str('filename' + '\n'))
-    f.write(str('type, line, val, code' + '\n\n'))
+
+    f.write(str('filename, type, line, value' + '\n\n'))
 
     for filename in files:
-      f.write(str(os.path.basename(filename) + '\n'))
-      
       for site in sites:
         if(site.filename == filename):
-          f.write(str(site.site_type) + ',' + str(site.line) + ',' + str(site.info) + ',' + str(site.code) + '\n')
-
+          f.write(str(os.path.basename(filename)) + ', ' + str(site.site_type) + ', '
+                      + 'line ' + str(site.line) + ', ' + str(site.info) + '\n')
+          #            + ', ' + str(site.code) + '\n')
       f.write('\n')
 
     f.close()
